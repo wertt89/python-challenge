@@ -19,7 +19,7 @@ max_increase = 0
 min_increase = 0
 increase_date = ""
 decrease_date = ""
-profitloss_changes = [] # Append to store monthly profitloss_change
+profitloss_changes = [] # Store monthly profitloss_change
 
 # Reading into CSV file
 with open(csvpath) as csvfile:
@@ -42,8 +42,8 @@ with open(csvpath) as csvfile:
         profitloss_changes.append(profitloss_change)
         profit_change_sum = profit_change_sum + profitloss_change
         previous_month_value = next_month_value
-        # Calculating average of change by subtracting first row value and one month as first month is skipped, then rounding to the nearest hundredth
-        profit_change_average = round((profit_change_sum-867884)/(months-1),2)
+        # Calculating average of change by subtracting Jan-2010 value and one month as first month is skipped, then rounding to the nearest hundredth
+        profit_change_average = round((profit_change_sum-int(data[0][1]))/(months-1),2)
         # Determining the greatest increase
         if (profitloss_change > max_increase):
             max_increase = profitloss_change
@@ -56,7 +56,7 @@ with open(csvpath) as csvfile:
             decrease_date = row[0]
 
     # Printing all required outputs on separate lines and formatting monetary values to include thousand separators
-    print("Total Months: " + str(months) + "\n" + "Total: $" + f'{profitloss_total:,}' + "\n" + "Average Change: $" + f'{profit_change_average:,}' + "\n" + "Greatest Increase in Profits: " + increase_date + " ($" + f'{max_increase:,}' + ")" + "\n" + "Greatest Decrease in Profits: " + decrease_date + " ($" + f'{min_increase:,}' + ")")
+    print("Financial Analysis" + "\n" + "----------------------------" + "\n" + "Total Months: " + str(months) + "\n" + "Total: $" + f'{profitloss_total:,}' + "\n" + "Average Change: $" + f'{profit_change_average:,}' + "\n" + "Greatest Increase in Profits: " + increase_date + " ($" + f'{max_increase:,}' + ")" + "\n" + "Greatest Decrease in Profits: " + decrease_date + " ($" + f'{min_increase:,}' + ")")
 
 # Creating output file and exporting results to analysis folder
     output_file = 'analysis/results.txt'
